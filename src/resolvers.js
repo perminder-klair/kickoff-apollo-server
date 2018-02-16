@@ -15,16 +15,17 @@ const resolvers = {
       const Post = new Posts(post);
       return Post.save();
     },
-    deletePost: (parent, args) => Posts.remove({ _id: args.id }),
+    deletePost: async (parent, args) => {
+      await Posts.remove({ _id: args.id });
+      return null;
+    },
     publish: async (parent, args) => {
-      console.log('publish');
       try {
-        const Post = await Posts.find({ _id: args.id }).exec();
-        console.log('post', Post);
+        const Post = await Posts.findOne({ _id: args.id }).exec();
         Post.published = true;
         return Post.save();
       } catch (err) {
-        return 'error occured';
+        return null;
       }
     },
   },

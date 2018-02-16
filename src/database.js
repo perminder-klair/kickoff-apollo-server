@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const config = require('./config');
+import mongoose from 'mongoose';
+import config from './config';
 
 mongoose.connect(config.dbUri);
-// mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
 export const Posts = mongoose.model('Posts', {
   title: String,
   content: String,
-  published: Boolean,
+  published: { type: Boolean, default: false },
 });
