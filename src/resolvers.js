@@ -1,9 +1,9 @@
-const db = require('./database');
+import { Posts } from './database';
 
 const resolvers = {
   Query: {
-    posts: () => db.Posts.find(),
-    post: (parent, args) => db.Posts.find({ _id: args.id }),
+    posts: () => Posts.find(),
+    post: (parent, args) => Posts.find({ _id: args.id }),
   },
   Mutation: {
     createDraft: (parent, args) => {
@@ -11,17 +11,23 @@ const resolvers = {
         title: args.title,
         content: args.content,
         published: false,
-      }
-      const Post = new db.Posts(post);
+      };
+      const Post = new Posts(post);
       return Post.save();
     },
-    deletePost: (parent, args) => db.Posts.remove({ _id: args.id }),
-    publish: (parent, args) => {
-      const Post = db.Posts.find({ _id: args.id });
-      Post.published = true
-      return Post.save();
-    }
+    deletePost: (parent, args) => Posts.remove({ _id: args.id }),
+    publish: async (parent, args) => {
+      console.log('publish');
+      try {
+        const Post = await Posts.find({ _id: args.id }).exec();
+        console.log('post', Post);
+        Post.published = true;
+        return Post.save();
+      } catch (err) {
+        return 'error occured';
+      }
+    },
   },
-}
+};
 
-module.exports = resolvers;
+export default resolvers;
