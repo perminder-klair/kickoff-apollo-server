@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "develop": "nodemon index.js",
-    "lint": "prettier --write src/*.js"
+    "lint": "eslint --fix src/*.js"
   },
   "author": "",
   "license": "ISC",
