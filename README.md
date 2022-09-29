@@ -34,4 +34,5 @@
 
 - `yarn start` - simply starts the server
 - `yarn dev` -  starts the server with reloading
-- `yarn run lint` - lints all the files in `src/` folder
+- `yarn lint` - lints and fix all the files in `src/` folder
+- `yarn build-email` - builds the email templates from mjml to ejs

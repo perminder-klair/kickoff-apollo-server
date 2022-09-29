@@ -1,17 +1,23 @@
 {
   "name": "kickoff-apollo-server",
-  "version": "2.0.0",
-  "description": "",
-  "main": "src/index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
+  "version": "2.0.1",
+  "description": "A very lean boilerplate for setting up GraphQL server.",
+  "main": "dist/index.js",
+  "keywords": [
+    "graphql",
+    "apollo",
+    "apollo server",
+    "apollo graphql"
+  ],
+  "author": "Parminder Klair",
+  "license": "MIT",
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "node ./dist/index.js",
     "dev": "nodemon --exec babel-node -- ./src/index.js",
     "eslint": "eslint --fix --ext .jsx,.js ./src/**",
     "build-email": "node ./src/build-emails.js",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "npm run clean && babel ./src --out-dir dist --copy-files",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
@@ -24,6 +30,8 @@
     "@aws-sdk/client-s3": "^3.180.0",
     "@aws-sdk/credential-provider-cognito-identity": "^3.180.0",
     "@aws-sdk/s3-request-presigner": "^3.180.0",
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
     "@graphql-tools/merge": "^8.3.6",
     "@graphql-tools/schema": "^9.0.4",
     "apollo-server": "^3.10.2",
@@ -43,10 +51,11 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.19.3",
-    "@babel/core": "^7.19.3",
     "@babel/node": "^7.19.1",
+    "@babel/plugin-transform-runtime": "^7.19.1",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.19.3",
+    "@babel/runtime": "^7.19.0",
     "@graphql-eslint/eslint-plugin": "^3.11.2",
     "babel-plugin-graphql-tag": "^3.3.0",
     "babel-plugin-import-graphql": "^2.8.1",
