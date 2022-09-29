@@ -1,70 +1,37 @@
-# Kickoff NextJs FullStack
+## `kickoff-apollo-server`
 
-Fully re-written using Nextjs and TailwindCSS, includes Graphql Server and CypressJs for testing + Authorization and blog.
-It’s depended on Zeiq Base for elements and helpers
+> A very lean boilerplate for setting up GraphQL server.
 
-## Stack
+#### Requirements
 
-- [Next.js](https://nextjs.org/)
-- [React.js](https://facebook.github.io/react/)
-- [Zeiq Base](https://github.com/zeiq-co/zeiq-base)
-- [Tailwind Blocks](https://tailblocks.cc/)
-- [headlessUI](https://headlessui.dev)
-- [heroicons](https://heroicons.com)
-- [tailwindcss](https://tailwindcss.com/)
-- [Apollo Server](https://www.apollographql.com/)
-- [Mongoose MongoDB](https://mongoosejs.com/)
-- [Cypress Testing](https://www.cypress.io/)
-
-## To use
-
-- Fork or download this repo
-- Ready!
-
-## Setup
-
-Run:
-
-```
-yarn install
+```bash
+- Node >=v16.16.0
+- NPM >=v8.11.0
+- MongoDB
 ```
 
-## Development
+### Setup
 
-To start development server
-
-```
-yarn dev
-```
-
-## To build email templates
-
-Visit:
-
-```
-http://localhost:3000/api/build-emails
+```bash
+  # clone the repository
+  λ git clone https://github.com/perminder-klair/kickoff-apollo-server
+  # change the current directory
+  λ cd kickoff-apollo-server
+  # install all dependencies
+  λ yarn install
+  # run the project
+  λ yarn dev
 ```
 
-## Testing
+### Structure
 
-To start tests using CypressJs
-
-```
-yarn test
-```
-
-## Deployment
-
-To deploy to zeit now host
-
-```
-yarn deploy
+```bash
+├── README.md           # you're here
+├── src                 # contains source files
 ```
 
-## Lint code and check Errors
+### Scripts
 
-Using Eslint and Prettier
-
-```
-yarn lint
-```
+- `yarn start` - simply starts the server
+- `yarn dev` -  starts the server with reloading
+- `yarn run lint` - lints all the files in `src/` folder
