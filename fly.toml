@@ -1,6 +1,6 @@
-# fly.toml file generated for apollo-graphql on 2022-09-28T18:00:25+01:00
+# fly.toml file generated for kickoff-apollo-server on 2022-09-29T11:23:26+01:00
 
-app = "apollo-graphql"
+app = "kickoff-apollo-server"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []

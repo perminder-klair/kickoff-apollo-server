@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server';
+import gql from 'graphql-tag';
 
 const typeDefs = gql`
   type Post {
@@ -10,8 +10,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    allPosts: [Post]
-    singlePost(slug: String!): Post
+    allPosts: [Post] @cacheControl(maxAge: 30)
+    singlePost(slug: String!): Post @cacheControl(maxAge: 30)
   }
 `;
 

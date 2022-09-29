@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server';
+import gql from 'graphql-tag';
 
 const typeDefs = gql`
   enum UserStatus {
@@ -41,7 +41,7 @@ const typeDefs = gql`
   # This type specifies the entry points into our API. In this case
   # there is only one - "me" - which returns a current user.
   type Query {
-    me: User # returns a current user
+    me: User @cacheControl(maxAge: 30)
   }
 
   # The mutation root type, used to define all mutations.
