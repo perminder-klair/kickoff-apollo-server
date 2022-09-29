@@ -10,6 +10,7 @@
     "start": "node ./src/index.js",
     "dev": "nodemon --exec babel-node -- ./src/index.js",
     "eslint": "eslint --fix --ext .jsx,.js ./src/**",
+    "build": "node ./src/build-emails.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {

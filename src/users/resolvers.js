@@ -84,6 +84,7 @@ export default {
       await User.updateOne({ email: input.email }, { resetPasswordToken });
 
       const [html, subject] = await renderTemplate('forgot-password', {
+        // eslint-disable-next-line max-len
         resetPasswordLink: `${webAppUrl}/auth/set-password?token=${resetPasswordToken}`,
       });
       const mailOptions = {

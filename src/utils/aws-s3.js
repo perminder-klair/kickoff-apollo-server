@@ -6,6 +6,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity';
+// eslint-disable-next-line max-len
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity';
 import { orderBy } from 'lodash';
 

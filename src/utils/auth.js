@@ -21,6 +21,7 @@ export const isAuthenticated = async (req) => {
 
 export function generateToken(user) {
   const jwtToken = jwt.sign(
+    // eslint-disable-next-line no-underscore-dangle
     { id: user._id, email: user.email },
     conf.get('jwtSecret'),
   );
