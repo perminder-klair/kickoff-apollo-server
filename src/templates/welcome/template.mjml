@@ -1,0 +1,34 @@
+<mjml>
+  <mj-body>
+    <mj-include path="../shared/header.mjml" />
+
+    <mj-section>
+      <mj-column>
+        <mj-text
+          font-size="35px"
+          font-family="helvetica"
+          color="#F45E43"
+          align="center"
+        >
+          Welcome to My Site!
+        </mj-text>
+
+        <mj-divider border-color="#F45E43"></mj-divider>
+
+        <mj-text
+          font-size="20px"
+          font-family="helvetica"
+          color="#5a6270"
+          align="center"
+        >
+          We are very excited to have you on board. We are adding new functionalities every week, we will try to keep you posted.<br />
+          However, you can contact us on our Discord channel or by email.<br />
+          We're very happy to have a chat with you.<br />
+          See you there!
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="../shared/footer.mjml" />
+  </mj-body>
+</mjml>

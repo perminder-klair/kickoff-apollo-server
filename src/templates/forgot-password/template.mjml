@@ -1,0 +1,32 @@
+<mjml>
+  <mj-body>
+    <mj-include path="../shared/header.mjml" />
+
+    <mj-section>
+      <mj-column>
+        <mj-text
+          font-size="35px"
+          font-family="helvetica"
+          color="#F45E43"
+          align="center"
+        >
+          Password reset request
+        </mj-text>
+
+        <mj-divider border-color="#F45E43"></mj-divider>
+
+        <mj-text
+          font-size="20px"
+          font-family="helvetica"
+          color="#5a6270"
+          align="center"
+        >
+          You have requested to reset your password<br />
+          <a href="<%= resetPasswordLink %>">click here to set a new password</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="../shared/footer.mjml" />
+  </mj-body>
+</mjml>

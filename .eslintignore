@@ -1,0 +1,8 @@
+/.next
+/node_modules
+/.vscode
+/static
+/public
+yarn.lock
+package-lock.json
+**/*.test.js
