@@ -1,10 +1,14 @@
 import { ApolloServer } from 'apollo-server';
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginCacheControl,
+} from 'apollo-server-core';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 
 import { typeDefs, resolvers } from './utils/graphql';
 import { isAuthenticated } from './utils/auth';
 
+// Connect to the database on startup
 require('./utils/mongoose');
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
@@ -27,10 +31,13 @@ const server = new ApolloServer({
    * will be the defaults in AS4. For production environments, use
    * ApolloServerPluginLandingPageProductionDefault instead.
    * */
-  plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
+  plugins: [
+    ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+    ApolloServerPluginCacheControl({ defaultMaxAge: 5 }), // 5 seconds
+  ],
 });
 
 // The `listen` method launches a web server.
 server.listen({ port: 8080 }).then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+  console.log(`🚀 Server ready at ${url}`);
 });

@@ -2,6 +2,8 @@
 
 > A very lean boilerplate for setting up GraphQL server.
 
+- [Live Demo](https://kickoff-apollo-server.fly.dev/)
+
 #### Requirements
 
 ```bash
@@ -34,5 +36,6 @@
 
 - `yarn start` - simply starts the server
 - `yarn dev` -  starts the server with reloading
+- `yarn build` -  using babel build the server for distribution
 - `yarn lint` - lints and fix all the files in `src/` folder
 - `yarn build-email` - builds the email templates from mjml to ejs

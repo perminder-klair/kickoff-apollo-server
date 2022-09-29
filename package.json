@@ -14,7 +14,7 @@
   "scripts": {
     "start": "node ./dist/index.js",
     "dev": "nodemon --exec babel-node -- ./src/index.js",
-    "eslint": "eslint --fix --ext .jsx,.js ./src/**",
+    "lint": "eslint --fix --ext .jsx,.js ./src/**",
     "build-email": "node ./src/build-emails.js",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && babel ./src --out-dir dist --copy-files",
