@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 
-const uri =
-  'mongodb://dev:vLz9u3LZzEFuQcBW@SG-fore-52074.servers.mongodirector.com:27017/dev';
+import config from './config';
+
+const uri = config.get('mongodb');
 
 mongoose.connection
   .on('error', (e) => console.error('Database connection error', e.message))
