@@ -1,10 +1,13 @@
+/* eslint-disable no-underscore-dangle */
 import { isEmpty } from 'lodash';
 import randomstring from 'randomstring';
+import { ApolloError, AuthenticationError } from 'apollo-server';
 
 import { generateToken, isLoggedIn } from '../utils/auth';
 import User from './database';
 import mailer, { renderTemplate } from '../utils/mailer';
 import config from '../utils/config';
+import { cleanString } from '../utils/helpers';
 
 export default {
   Query: {
@@ -17,14 +20,16 @@ export default {
   Mutation: {
     register: async (root, args) => {
       const { email, password } = args.input;
-      let user = await User.findOne({ email: email.toLowerCase() });
+      const cleanEmail = cleanString(email);
+
+      let user = await User.findOne({ email: cleanEmail });
 
       if (user) {
         throw new Error('E-mail already registered.');
       }
 
       const data = {
-        email,
+        email: cleanEmail,
         password,
       };
 
@@ -32,25 +37,28 @@ export default {
       await user.save();
 
       // send welcome email
-      const [html, subject] = await renderTemplate('welcome', {
-        user,
-      });
-      const mailOptions = {
-        to: `"${config.get('siteName')}" <${user.email}>`,
-        from: config.get('adminEmail'),
-        subject,
-        html,
-      };
-      await mailer.sendMail(mailOptions);
+      // const [html, subject] = await renderTemplate('welcome', {
+      //   user,
+      // });
+      // const mailOptions = {
+      //   to: `"${config.get('siteName')}" <${user.email}>`,
+      //   from: config.get('adminEmail'),
+      //   subject,
+      //   html,
+      // };
+      // await mailer.sendMail(mailOptions);
 
       const token = generateToken(user);
       return { user, jwt: token };
     },
     login: async (root, args) => {
-      const user = await User.findOne({ email: args.input.email });
+      const cleanEmail = cleanString(args.input.email);
+
+      const user = await User.findOne({ email: cleanEmail });
       if (!user) {
         throw new Error('Invalid username or password.');
       }
+
       const isPasswordValid = await user.comparePassword(args.input.password);
       if (!isPasswordValid) {
         throw new Error('Invalid username or password.');
@@ -59,23 +67,49 @@ export default {
       const token = generateToken(user);
       return { user, jwt: token };
     },
-    updateMe: async (root, { input }, ctx) => {
-      const me = await isLoggedIn(ctx);
+    //
+    // const me = await isLoggedIn(ctx);
+    updateMe: async (root, args, ctx) => {
+      if (!ctx.user) {
+        throw new AuthenticationError('Not logged in');
+      }
 
+      const objFind = { _id: ctx.user.id };
+      const user = await User.findOne(objFind);
+
+      if (user === null) {
+        throw new ApolloError('Invalid user, or user not found');
+      }
+
+      const { email, profile } = args.input;
       const objUpdate = {};
-      const objFind = { _id: me.id };
 
-      // update user
-      if (input.email) {
-        objUpdate.email = input.email;
+      if (email) {
+        objUpdate.email = cleanString(email);
+        // check if email already exists in db, throw error
+        const duplicateEmail = await User.findOne({
+          email: cleanString(email),
+          _id: { $ne: user._id },
+        });
+        if (duplicateEmail) {
+          throw new AuthenticationError(
+            'Email already exists, please use another.',
+          );
+        }
       }
 
-      // if user obj not empty
-      if (!isEmpty(objUpdate)) {
-        await User.updateOne(objFind, objUpdate);
+      if (profile) {
+        objUpdate.profile = { ...user.profile, ...profile };
       }
 
-      return User.findOne({ _id: me.id });
+      // finally update user in db
+      try {
+        await User.updateOne(objFind, { $set: objUpdate });
+      } catch (e) {
+        throw new Error('Unable to update user data', e.message);
+      }
+
+      return User.findOne(objFind);
     },
     forgotPassword: async (root, { input }) => {
       const resetPasswordToken = randomstring.generate();

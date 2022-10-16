@@ -1,4 +1,5 @@
 import { readdirSync } from 'fs';
+import { toLower } from 'lodash';
 
 export const getDirectories = (source) => {
   console.log('getting directories');
@@ -16,4 +17,12 @@ export const getFiles = (source) => {
       // .filter((dirent) => dirent.isDirectory())
       .map((dirent) => dirent.name)
   );
+};
+
+export const cleanString = (str) => {
+  let s = str;
+  s = String(str);
+  s = s.replace(/\s/g, '');
+  s = toLower(s);
+  return s;
 };

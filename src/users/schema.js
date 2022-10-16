@@ -21,11 +21,6 @@ const typeDefs = gql`
     email: String!
     password: String!
   }
-  input UpdateUserInput {
-    email: String
-    oldPassword: String
-    newPassword: String
-  }
   input LoginInput {
     email: String!
     password: String!
@@ -36,6 +31,17 @@ const typeDefs = gql`
   input SetNewPassword {
     token: String!
     password: String!
+  }
+
+  input UserProfileInput {
+    firstName: String
+    lastName: String
+    bio: String
+    telephone: String
+  }
+  input UpdateUserInput {
+    email: String
+    profile: UserProfileInput
   }
 
   # This type specifies the entry points into our API. In this case
