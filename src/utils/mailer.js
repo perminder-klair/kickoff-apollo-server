@@ -10,7 +10,6 @@ const fs = require('fs').promises;
 export const templatesDir = path.resolve(
   process.cwd(),
   'src',
-  'graphql',
   'templates',
 );
 
